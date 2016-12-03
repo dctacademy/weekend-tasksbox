@@ -13,7 +13,9 @@ gem 'httparty'
 gem 'rabl' # ruby api builder language 
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', group: :development
+gem 'pg', group: :production
+gem 'puma'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -49,6 +51,12 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'capistrano', '~> 3.5'
+  gem 'capistrano-bundler', '~> 1.1', '>= 1.1.4'
+  gem 'capistrano-rails', '~> 1.1', '>= 1.1.6'
+  gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rails-console'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
