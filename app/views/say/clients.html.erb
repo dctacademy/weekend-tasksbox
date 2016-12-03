@@ -1,0 +1,10 @@
+<h3>Listing Clients</h3>
+<p>Total CLients <%= @clients.size %></p>
+
+<ul>
+	<% @clients.each do |client| %>
+			<li><%= client.name %> - <%= client.company %></li>
+	<% end %>
+</ul>
+
+<%# link_to "Add Client", new_client_path %> 

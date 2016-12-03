@@ -1,0 +1,79 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+			<h1><%= @project.name %> 
+				<small>
+					<span class="label label-default"><%= @project.status %></span>
+				</small>
+			</h1>
+
+				<div class="progress">
+				  <div class="progress-bar  progress-bar-success" style="width: <%= @project.percentage_completed %>%;">
+				  </div>
+				</div>
+
+		</div>
+	</div>
+</div>
+
+<%# @project.client.name if !@project.client.nil?  %>
+
+<h3>Listing Tasks</h3>
+
+<% data = [] 
+	@project.tasks.each do |task|
+		data.push([task.title, task.project.start_date, task.due_date]) if task.due_date > @project.start_date
+	end
+%>
+
+<%= timeline data %>
+
+
+<h4>Over due Tasks</h4>
+<ul>
+	<% @project.over_due_tasks.each do |task| %>
+		<li><%= task.details %> 
+
+		<%= link_to "Mark As Complete", tasks_mark_as_complete_path(task_id: task.id)  %></li>
+
+	<% end %>
+</ul>
+
+<h4>Incomplete Tasks</h4>
+<ul>
+	<% @project.incomplete_tasks.each do |task| %>
+		<li><%= task.details %>
+		<%= link_to "Mark As Complete", tasks_mark_as_complete_path(task_id: task.id)  %>
+		<%# link_to "mark as complete", "/tasks/mark_as_complete?task_id=#{task.id}" %>
+
+		</li>
+	<% end %>
+</ul>
+
+<h4>Completed Tasks</h4>
+<ul>
+	<% @project.completed_tasks.each do |task| %>
+		<li><%= task.details %>
+		<%= link_to "Mark As incomplete", tasks_mark_as_incomplete_path(task_id: task.id)  %>
+	<% end %>
+</ul>
+
+
+<h3>Add Task</h3>
+
+<%= form_for @project.tasks.build do |f| %>
+
+<%= f.label :title %><br/>
+<%= f.text_field :title %><br/>
+
+<%= f.label :due_date %><br/>
+<%= f.date_select :due_date %><br/>
+
+<%= f.label :is_completed %><br/>
+<%= f.check_box :is_completed %><br/>
+
+<%= f.hidden_field :project_id, value: @project.id %> 
+
+<%= f.submit %>
+
+<% end %>

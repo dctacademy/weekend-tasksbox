@@ -1,0 +1,35 @@
+<h3><%= @client.name %> <%= @client.gender %></h3>
+
+<% if @client.projects.empty? %>
+
+	<p>No projects found. <%= link_to "Add Project", new_project_path %> </p>
+
+<% else %>
+
+	<h3>Listing Projects (<%= @client.projects.size %>)</h3>
+	<ol>
+		<% @projects.each do |project| %>
+			<h4><%= project.name %></h4>
+				<ul>
+					<% project.tasks.each do |task| %>
+						<li><%= task.title %></li>
+					<% end %>
+				</ul>
+		<% end %>
+	</ol>
+
+<% end %>
+
+
+<button><%= link_to "edit", edit_client_path(@client.id) %> </button>| 
+<%= link_to "destroy", client_path(@client.id), data: {method: :delete, confirm: "Are you sure?" } %>
+
+<%= link_to "back", clients_path %>
+
+<!-- 
+	
+we use : before for arguments passed to a method
+we use : after (ie method: )  for options to the methods
+we use : before (ie :delete) for value to options of the method 
+
+-->

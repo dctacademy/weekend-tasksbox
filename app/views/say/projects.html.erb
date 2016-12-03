@@ -1,0 +1,13 @@
+<h3>Listing Projects</h3>
+<ul>
+	<% @projects.each do |project| %>
+		<li><%= project.name %></li>
+	<% end %>
+</ul>
+
+<h3>Top Ten</h3>
+<ul>
+	<% @projects.limit(10).each do |p| %>
+		<li><%= p.name %></li>
+	<% end %>
+</ul>

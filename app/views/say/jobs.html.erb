@@ -1,0 +1,22 @@
+<h3>Find jobs in you locality</h3>
+
+<%= form_tag({url: say_jobs_path}, {method: :get}) do %>
+<%= label_tag "Technology" %><br/>
+<%= text_field_tag :technology %><br/>
+
+<%= label_tag "Location" %><br/>
+<%= text_field_tag :location %><br/>
+
+<%= submit_tag "Submit" %>
+
+<% end %>
+
+<% if !@response.nil? %>
+	<h3>Jobs Found for <%= @response["query"] %>: <%= @response["totalResults"] %></h3>
+
+	<ul>
+		<% @response["results"].each do |result| %>
+			<li><%= result["jobtitle"] %> - <%= result["company"] %> - <%= result["city"] %></li>
+		<% end %>
+	</ul>
+<% end %>
