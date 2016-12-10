@@ -1,0 +1,52 @@
+
+<script>
+$(document).ready(function(){
+	 var array = <%= raw(Project.all.pluck(:start_date).map! {|s| s.to_s}) %>
+
+
+		$('input').datepicker({
+		    beforeShowDay: function(date){
+		        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+		        return [ array.indexOf(string) == -1 ]
+		    }
+		});
+
+    $('#taskDueDate').datepicker(
+    	{ dateFormat: 'yy-mm-dd',
+    		changeMonth: true,
+     		changeYear: true,
+
+     	});
+
+     var dateFormat = "mm/dd/yy",
+      from = $( "#startDate" )
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 3
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#endDate" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+})
+
+</script>

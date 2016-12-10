@@ -1,3 +1,5 @@
+<%= render 'js' %>
+
 <h2>Add Project</h2>
 
 <%= form_for @project do |f| %>
@@ -27,7 +29,10 @@
 <%= f.select :status, ["new", "on-going", "completed"], prompt: "Select Status" %><br/>
 
 <%= f.label :start_date %><br/>
-<%= f.date_select :start_date, order: [:day,:month,:year] %><br/>
+<%= f.text_field :start_date, id: "startDate" %><br/>
+
+<%= f.label :end_date %><br/>
+<%= f.text_field :end_date, id: "endDate" %><br/>
 
 <%= f.label :categories %><br/>
 <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>

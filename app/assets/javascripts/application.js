@@ -12,6 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require chartkick
 //= require_tree .
+
+$(document).ready(function(){
+    $('#clientsTable').DataTable();
+    $('#categoryTable').DataTable();
+    $('#project_client_id').chosen();
+});
